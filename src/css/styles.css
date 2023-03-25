@@ -23,15 +23,28 @@ body {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  border-radius: 4px;
   text-decoration: none;
+  border-radius: 4px;
 }
 
+.hoveredicon span,
+.hoveredicon a {
+  transition: 0.3s;
+}
 .hoveredicon svg path {
   transition: 0.3s;
 }
 .hoveredicon:hover svg path {
   stroke: #DB4444;
+}
+.hoveredicon:hover span {
+  background: #DB4444 !important;
+}
+.hoveredicon.header__menu__item:hover a {
+  color: #DB4444 !important;
+}
+.hoveredicon.header__menu__item:hover svg path {
+  fill: #DB4444;
 }
 
 .container {
@@ -72,6 +85,7 @@ body {
   appearance: none;
   background: #000000;
   border: none;
+  cursor: pointer;
 }
 @media screen and (max-width: 1024px) {
   .top__header__section .container {
@@ -112,6 +126,9 @@ nav .container .nav__menu {
   display: flex;
   gap: 48px;
 }
+nav .container .nav__menu .header__menu {
+  display: none;
+}
 nav .container .nav__menu .nav__menu__item a {
   position: relative;
   text-decoration: none;
@@ -119,17 +136,20 @@ nav .container .nav__menu .nav__menu__item a {
   font-size: 16px;
 }
 nav .container .nav__menu .nav__menu__item a::before {
-  position: absolute;
   content: "";
   width: 0%;
   height: 1px;
   background: rgba(0, 0, 0, 0.5019607843);
+  position: absolute;
   left: 0;
   bottom: -5px;
   transition: 0.3s;
 }
 nav .container .nav__menu .nav__menu__item a:hover::before {
   width: 100%;
+}
+nav .container .nav__menu form {
+  display: none;
 }
 nav .container .nav__icons {
   display: flex;
@@ -164,124 +184,341 @@ nav .container .nav__icons form button {
 }
 nav .container .nav__icons .nav__icons__end {
   display: flex;
+  justify-content: end;
   align-items: center;
   gap: 16px;
 }
-nav .container .nav__icons .nav__icons__end .to__wish__list__btn a, nav .container .nav__icons .nav__icons__end .to__basket__btn a {
+nav .container .nav__icons .nav__icons__end .to__wish__list__btn a,
+nav .container .nav__icons .nav__icons__end .to__basket__btn a {
   display: block;
 }
-nav .container .nav__icons .nav__icons__end .to__wish__list__btn a svg, nav .container .nav__icons .nav__icons__end .to__basket__btn a svg {
+nav .container .nav__icons .nav__icons__end .to__wish__list__btn a svg,
+nav .container .nav__icons .nav__icons__end .to__basket__btn a svg {
   display: block;
   width: 100%;
   height: 100%;
 }
-nav .container .nav__icons .nav__menu__mobile {
+nav .container .nav__icons .nav__icons__end .burger__menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  width: 30px;
+  height: 20px;
+}
+nav .container .nav__icons .nav__icons__end .burger__menu span {
+  display: block;
+  background: #000000;
+  width: 100%;
+  height: 2px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+nav .container .nav__icons .nav__icons__end .burger__menu.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-8px, 6px);
+}
+nav .container .nav__icons .nav__icons__end .burger__menu.active span:nth-child(2) {
   display: none;
 }
-nav .container .nav__icons .nav__menu__mobile a {
-  display: block;
+nav .container .nav__icons .nav__icons__end .burger__menu.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-10px, -9px);
 }
-nav .container .nav__icons .nav__menu__mobile a svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  fill: rgba(0, 0, 0, 0.7764705882);
-}
-@media screen and (max-width: 945px) {
+@media screen and (max-width: 1024px) {
   nav .container .nav__menu {
     gap: 24px;
   }
-}
-@media screen and (max-width: 845px) {
-  nav .container {
-    margin-top: 25px;
-    margin-bottom: 20px;
+  nav .container .nav__icons form input {
+    width: 200px;
+    padding: 7px 45px 7px 10px;
   }
-  nav .container .nav__menu {
+}
+@media screen and (max-width: 820px) {
+  nav .container .nav__icons form input {
+    width: 150px;
+    padding: 7px 45px 7px 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+  nav .container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  nav .container .nav__icons form {
     display: none;
   }
-  nav .container .nav__icons .nav__menu__mobile {
+  nav .container .nav__icons .nav__icons__end .burger__menu {
+    display: flex;
+    cursor: pointer;
+  }
+  nav .container .nav__menu {
+    z-index: 100;
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    background: #fff;
+    width: 100%;
+    left: 0;
+    top: 85px;
+    gap: 0px;
+  }
+  nav .container .nav__menu.active {
     display: block;
   }
-  nav .container .nav__icons .nav__menu__mobile svg rect {
+  nav .container .nav__menu .nav__menu__item {
+    border-bottom: 0.5px solid #eee;
+  }
+  nav .container .nav__menu .nav__menu__item a {
+    display: block;
+    padding: 32px;
     transition: 0.3s;
   }
-  nav .container .nav__icons .nav__menu__mobile:hover svg rect {
-    fill: #DB4444;
+  nav .container .nav__menu .nav__menu__item a::before {
+    display: none;
   }
-}
-@media screen and (max-width: 620px) {
-  nav .container {
-    padding: 0px 10px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  nav .container .nav__menu .nav__menu__item a:hover {
+    background: #eee;
   }
-  nav .container .nav__icons {
-    gap: 12px;
+  nav .container .nav__menu .nav__menu__item:nth-child(4) {
+    border-bottom: none;
   }
-  nav .container .nav__icons form input {
-    width: 185px;
-    padding-left: 10px;
+  nav .container .nav__menu form {
+    display: flex;
+    padding: 16px 32px;
   }
-  nav .container .nav__icons form input::placeholder {
-    font-size: 10px;
-  }
-  nav .container .nav__icons .nav__icons__end {
-    gap: 6px;
-  }
-}
-@media screen and (max-width: 470px) {
-  nav .container .nav__logo h2 a {
-    font-size: 18px;
-  }
-  nav .container .nav__icons {
-    gap: 9px;
-  }
-  nav .container .nav__icons form input {
-    width: 170px;
-  }
-  nav .container .nav__icons form input::placeholder {
-    font-size: 9px;
-  }
-  nav .container .nav__icons .nav__menu__mobile a svg rect {
-    width: 60px;
-  }
-}
-@media screen and (max-width: 420px) {
-  nav .container {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    padding: 0 7px;
-  }
-  nav .container .nav__logo h2 a {
-    font-size: 14px;
-  }
-  nav .container .nav__icons .nav__icons__end .to__wish__list__btn a svg, nav .container .nav__icons .nav__icons__end .to__basket__btn a svg {
-    width: 25px;
-  }
-  nav .container .nav__icons .nav__menu__mobile a {
-    width: 20px;
-  }
-  nav .container .nav__icons .nav__menu__mobile a svg rect {
+  nav .container .nav__menu form input {
+    background: #F5F5F5;
+    border-radius: 4px 0px 0px 4px;
+    padding: 7px 45px 7px 20px;
+    border: none;
+    outline: 0;
     width: 100%;
+    height: 38px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5019607843);
   }
-}
-@media screen and (max-width: 370px) {
-  nav .container .nav__icons {
-    gap: 7px;
+  nav .container .nav__menu form input::placeholder {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5019607843);
   }
-  nav .container .nav__icons form input {
-    width: 138px;
-    padding: 5px 30px 5px 5px;
+  nav .container .nav__menu form button {
+    background: #F5F5F5;
+    border-radius: 0px 4px 4px 0px;
+    border: none;
+    outline: 0;
+    font-size: 14px;
+    cursor: pointer;
   }
-  nav .container .nav__icons form input::placeholder {
-    font-size: 8px;
+  nav .container .nav__menu .header__menu {
+    display: block;
   }
-  nav .container .nav__icons form button {
-    right: 0px;
+  nav .container .nav__menu .header__menu .header__menu__item {
+    display: flex;
+    justify-content: space-between;
+    margin: 32px;
+    width: 217px;
+    height: 24px;
+  }
+  nav .container .nav__menu .header__menu .header__menu__item a {
+    font-size: 16px;
+    color: #000000;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 100%;
+    line-height: 24px;
+  }
+  nav .container .nav__menu .header__menu .header__menu__item .header__menu__item__open {
+    cursor: pointer;
+  }
+  nav .container .nav__menu .header__menu .header__menu__item:last-child {
+    margin-bottom: 0px;
   }
 }
 
+header {
+  margin-top: 40px;
+}
+header .container {
+  display: flex;
+  gap: 64px;
+}
+header .container .header__menu {
+  position: relative;
+}
+header .container .header__menu .header__menu__item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  width: 217px;
+  height: 24px;
+}
+header .container .header__menu .header__menu__item a {
+  font-size: 16px;
+  color: #000000;
+  text-decoration: none;
+  white-space: nowrap;
+  width: 100%;
+  line-height: 24px;
+}
+header .container .header__menu .header__menu__item .header__menu__item__open {
+  cursor: pointer;
+}
+header .container .header__menu .header__menu__item:last-child {
+  margin-bottom: 0px;
+}
+header .container .header__menu::after {
+  content: "";
+  width: 0.5px;
+  height: calc(100% + 40px);
+  position: absolute;
+  background: #000000;
+  top: -40px;
+  right: -16px;
+  opacity: 0.3;
+}
+header .container .header__slider {
+  width: 892px;
+  height: 344px;
+  background: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+header .container .header__slider .header__slider__img {
+  padding: 45px 50px 0px 50px;
+  display: flex;
+  justify-content: space-around;
+}
+header .container .header__slider .header__slider__img .header__slider__content .brand {
+  display: flex;
+  gap: 24px;
+  color: #FAFAFA;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+header .container .header__slider .header__slider__img .header__slider__content h1 {
+  margin: 20px 0px 22px 0px;
+  color: #FAFAFA;
+  font-family: "inter-medium";
+  font-style: normal;
+  font-weight: 600;
+  font-size: min(48px, max(24px + 2vw));
+  line-height: 60px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+header .container .header__slider .header__slider__img .header__slider__content a {
+  display: flex;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  color: #FAFAFA;
+  cursor: pointer;
+}
+header .container .header__slider .header__slider__img .header__slider__content a svg {
+  display: block;
+}
+header .container .header__slider .header__slider__img .header__slider__cover img {
+  display: block;
+}
+header .container .header__slider .header__slider__btn {
+  margin-bottom: 11px;
+}
+@media screen and (max-width: 1170px) {
+  header .container {
+    gap: 32px;
+  }
+  header .container .header__menu .header__menu__item {
+    width: 100%;
+  }
+  header .container .header__slider .header__slider__img .header__slider__cover img {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 945px) {
+  header .container .header__slider .header__slider__img .header__slider__cover img {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 850px) {
+  header .container .header__slider {
+    position: relative;
+  }
+  header .container .header__slider .header__slider__img {
+    padding-left: 10px;
+    position: relative;
+  }
+  header .container .header__slider .header__slider__img .header__slider__content {
+    position: absolute;
+    left: 70px;
+  }
+  header .container .header__slider .header__slider__img .header__slider__cover img {
+    margin-left: 270px;
+    width: 241px;
+  }
+  header .container .header__slider .header__slider__btn {
+    position: absolute;
+    bottom: 10px;
+  }
+}
+@media screen and (max-width: 800px) {
+  header .container .header__slider .header__slider__img .header__slider__content {
+    left: -30px;
+  }
+  header .container .header__slider .header__slider__img .header__slider__content h1 {
+    font-size: 35px;
+    margin: 10px 0 12px 0;
+  }
+  header .container .header__slider .header__slider__img .header__slider__cover {
+    max-width: 241px;
+  }
+  header .container .header__slider .header__slider__img .header__slider__cover img {
+    margin-left: 130px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  header .container {
+    padding: 0 16px;
+  }
+  header .container .header__menu {
+    display: none;
+  }
+  header .container .header__slider .header__slider__img .header__slider__content {
+    left: -50px;
+  }
+  header .container .header__slider .header__slider__img .header__slider__cover {
+    margin-left: 27px;
+  }
+}
+@media screen and (max-width: 520px) {
+  header .container .header__slider .header__slider__img .header__slider__content {
+    left: 0px;
+    top: 120px;
+  }
+  header .container .header__slider .header__slider__img .header__slider__content h1 {
+    margin: 8px 0px 10px 0px;
+    font-size: 28px;
+    line-height: 35px;
+  }
+  header .container .header__slider .header__slider__img .header__slider__cover img {
+    display: block;
+    margin-left: 50px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 350px) {
+  header .container .header__slider {
+    padding: 0 20px;
+  }
+}
+
+/* NORMALIZE CSS */
 * {
   box-sizing: border-box;
 }
